@@ -57,6 +57,12 @@ html {
   margin: 20px;
   @include box-shadow(1px 1px 4px 0 rgba(0,0,0,0.1));
 
+
+  &:empty {
+    &:before {
+      content: '讀取中';
+    }
+  }
   .title {
     position: fixed;
     top: 20px;
