@@ -6,53 +6,17 @@
  */
 
 $(function () {
-  var arr = [$('<div />').addClass('aaa'), $('<div />').addClass('aaa'), $('<div />').addClass('aaa')]; //->array
-  $('#sidemenu').append('<div>aaa</div>');
+  function initBox(r){
+    var $tmp = $(r);
+    $tmp.find('.xxx').click(function(){
+      alert();
+    })
+    return $tmp;
+  }
 
-  // $()
-  // $('.clasName')         -> $jq obj
-  // $('<div />')           -> $jq obj
-  // $('str') -> html <str> -> $jq obj
-  //
-  // <div class='clasName'>1</div>
-  // <div class='clasName'>2</div>
-  // <div class='clasName'>3</div>
-  // $('.clasName')         -> $jq obj
-
-  //
-  // var $aaa = $('.aaa');
-  //
-  //
-  console.log(
-    arr
-  );
-  // // arr.eq(0);
-  //
-  console.log(
-    $(arr)
-  );
-
-  console.log(
-    $(arr).map($.fn.toArray)
-  );
-  //
-  // console.log(
-  //   $aaa
-  // );
-
-
-
-  // function initBox(r){
-  //   var $tmp = $(r);
-  //   $tmp.find('.xxx').click(function(){
-  //     alert();
-  //   })
-  //   return $tmp;
-  // }
-  //
-  // $.get('sidemenu.html', function(r) {
-  //   $('#sidemenu').append(initBox(r));
-  // });
+  $.get('sidemenu.html', function(r) {
+    $('#sidemenu').append(initBox(r));
+  });
 
   // var sidemenu = [
   //   {title: 'Tutorial', items: [
