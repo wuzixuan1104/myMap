@@ -32,10 +32,121 @@ html {
     text-align: center;
     font-size: medium;
     font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif, "微軟正黑體", "Microsoft JhengHei";
-
-    background: $mainBackgroundColor;
-    background-image: $mainBackgroundImage;
+    background-color: rgba(247, 247, 247, 1.00);
 
     @include font-smoothing(antialiased);
   }
+}
+#logo {
+  position: absolute;
+  display: inline-block;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+  font-family: fantasy;
+}
+#sidemenu {
+  position: fixed;
+  display: inline-block;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: calc(100% - 40px);
+  overflow: auto;
+  background-color: rgba(249, 242, 219, 1.00);
+  margin: 20px;
+  @include box-shadow(1px 1px 4px 0 rgba(0,0,0,0.1));
+
+  .title {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: inline-block;
+    height: 60px;
+    width: 300px;
+    background-color: rgba(141, 167, 157, 1.00);
+    font-size: 22px;
+    color: white;
+    line-height: 60px;
+    @include box-shadow(1px 1px 4px 0 rgba(0,0,0,0.1));
+  }
+
+  .boxes {
+    display: inline-block;
+    width: 100%;
+    margin-top: 60px;
+    .box {
+      display: block;
+      text-align: left;
+      padding: 20px 0 20px 20px;
+      border-bottom: 1px solid #e8e3da;
+      > b {
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+      > a {
+        display: block;
+        width: 100%;
+        text-decoration: none;
+        padding-top: 10px;
+        color: rgb(160, 107, 75);
+      }
+    }
+  }
+}
+
+.container {
+  display: inline-block;
+  width: calc(100% - 380px);
+  margin: 30px 20px 0 360px;
+  margin-bottom: 100px;
+
+  > * {
+    display: inline-block;
+    text-align: left;
+  }
+  .subject {
+    width: 100%;
+    color: black;
+    font-size: 30px;
+  }
+  .folder {
+    width: 100%;
+    color: rgba(33, 33, 33, 1.00);
+    font-size: 20px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+  p {
+    width: 100%;
+    font-size: 20px;
+    line-height: 35px;
+  }
+  #map {
+    display: inline-block;
+    width: 100%;
+    height: 500px;
+  }
+  .prettyprint {
+    display: inline-block;
+    width: 100%;
+    overflow: auto;
+    code {
+      font-size: 16px;
+      font-family: sans-serif, "微軟正黑體", "Microsoft JhengHei";
+    }
+  }
+  // pre.code {
+  //   display: block;
+  //   overflow: auto;
+  //   min-height: 30px;
+  //   max-height:800px;
+  //   padding: 0 0 0 11px;
+  //   border: 1px solid #ccc;
+  //   background: #f8f8ff url("data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAASwCAYAAAAt7rCDAAAABHNCSVQICAgIfAhkiAAAAQJJREFUeJzt0kEKhDAMBdA4zFmbM+W0upqFOhXrDILwsimFR5pfMrXW5jhZr7PwRlxVX8//jNHrGhExjXzdu9c5IiIz+7iqVmB7Hwp4OMa2nhhwN/PRGEMBh3Zjt6KfpzPztxW9MSAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzB8HS+J9kUTvzEDMwAAAABJRU5ErkJggg==") left top repeat-y;
+  //   }
+  //   code.prettyprint {
+  //   line-height: 1.2em;
+  //   margin: 1px;
+  // }
 }
