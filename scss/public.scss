@@ -60,7 +60,10 @@ html {
 
   &:empty {
     &:before {
-      content: '讀取中';
+      display: inline-block;
+      content: '讀取中...';
+      font-size: 20px;
+      padding-top: 100px;
     }
   }
   .title {
@@ -117,16 +120,40 @@ html {
     font-size: 30px;
   }
   .folder {
+    position: relative;
     width: 100%;
     color: rgba(33, 33, 33, 1.00);
     font-size: 20px;
     margin-top: 40px;
     margin-bottom: 30px;
+    background-color: rgba(207, 225, 207, 1.00);
+    padding: 5px 0 5px 10px;
+    @include border-radius(5px);
+    .date {
+      position: absolute;
+      display: inline-block;
+      top: 10px;
+      right: 10px;
+      color: rgb(173, 173, 169);
+      font-size: 16px;
+    }
   }
+
   p {
     width: 100%;
     font-size: 20px;
     line-height: 35px;
+  }
+  a {
+    color: rgba(164, 205, 247, 1.00);
+    margin-left: 5px;
+    margin-right: 5px;
+    &.show {
+      &:after {
+        content: attr(href);
+      }
+    }
+
   }
   #map {
     display: inline-block;
@@ -138,21 +165,8 @@ html {
     width: 100%;
     overflow: auto;
     code {
-      font-size: 16px;
+      font-size: 18px;
       font-family: sans-serif, "微軟正黑體", "Microsoft JhengHei";
     }
   }
-  // pre.code {
-  //   display: block;
-  //   overflow: auto;
-  //   min-height: 30px;
-  //   max-height:800px;
-  //   padding: 0 0 0 11px;
-  //   border: 1px solid #ccc;
-  //   background: #f8f8ff url("data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAASwCAYAAAAt7rCDAAAABHNCSVQICAgIfAhkiAAAAQJJREFUeJzt0kEKhDAMBdA4zFmbM+W0upqFOhXrDILwsimFR5pfMrXW5jhZr7PwRlxVX8//jNHrGhExjXzdu9c5IiIz+7iqVmB7Hwp4OMa2nhhwN/PRGEMBh3Zjt6KfpzPztxW9MSAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzB8HS+J9kUTvzEDMwAAAABJRU5ErkJggg==") left top repeat-y;
-  //   }
-  //   code.prettyprint {
-  //   line-height: 1.2em;
-  //   margin: 1px;
-  // }
 }
