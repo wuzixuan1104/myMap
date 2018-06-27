@@ -6,9 +6,9 @@
   @include font-smoothing(antialiased);
 }
 
-.icon-down:before {
+.icon-chevron-thin-down:before {
   content: "\e901";
 }
-.icon-up:before {
+.icon-chevron-thin-up:before {
   content: "\e900";
 }
