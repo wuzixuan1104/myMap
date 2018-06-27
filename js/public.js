@@ -26,7 +26,7 @@ $(function () {
     $('.folder').append( $('<span/>').addClass('date').append( today.toISOString().substring(0, 10))  );
   }
   if( $('.change_page').length <= 0 ) {
-    $('body').append( $('<div/>').addClass('change_page').append( [ $('<div/>').addClass('icon-up'), $('<div/>').addClass('icon-down') ] ) );
+    $('body').append( $('<div/>').addClass('change_page').append( [ $('<div/>').addClass('icon-chevron-thin-up'), $('<div/>').addClass('icon-chevron-thin-down') ] ) );
   }
   if( $('#logo').length <=0 ) {
     $('body').append( $('<div/>').attr('id', 'logo').text('by Chestnut Wu') );
@@ -35,7 +35,7 @@ $(function () {
 
 
 
-  $('.icon-up').click(function() {
+  $('.icon-chevron-thin-up').click(function() {
     if ($a === null)
       return false;
 
@@ -46,7 +46,7 @@ $(function () {
     window.location.assign($a.eq(index).attr('href'));
   });
 
-  $('.icon-down').click(function() {
+  $('.icon-chevron-thin-down').click(function() {
     if ($a === null)
       return false;
 

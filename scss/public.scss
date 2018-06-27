@@ -54,14 +54,14 @@ html {
   > * {
     display: block;
   }
-  .icon-up {
+  .icon-chevron-thin-up {
     &:before {
       font-size: 30px;
       font-weight: bold;
       color: rgba(0,0,0,0.45);
     }
   }
-  .icon-down {
+  .icon-chevron-thin-down {
     display: inline-block;
     margin-top: 20px;
     &:before {
