@@ -6,7 +6,7 @@
  */
 
 $(function () {
-  $.get('_sidemenu.html', function(r) {
+  $.get('sidemenu.html', function(r) {
     $('#sidemenu').append($(r));
   });
   var today = new Date();
