@@ -15,7 +15,7 @@ $(function () {
     $a = $tmp.find('.box a');
     $('#sidemenu').append($tmp);
     $a.each(function () {
-      if ($(this).attr('href') == current)
+      if ($(this).attr('href') == (current == '' ? 'index.html' : current) )
         $(this).addClass('active');
     });
 
@@ -31,9 +31,6 @@ $(function () {
   if( $('#logo').length <=0 ) {
     $('body').append( $('<div/>').attr('id', 'logo').text('by Chestnut Wu') );
   }
-
-
-
 
   $('.icon-chevron-thin-up').click(function() {
     if ($a === null)
