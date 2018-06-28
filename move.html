@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tw">
+  <head>
+    <meta http-equiv="Content-Language" content="zh-tw" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
+
+    <title>🌰 Google Map Application</title>
+
+    <link href="css/public.css" rel="stylesheet" type="text/css" />
+    <link href="css/icon.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/jquery_v1.10.2/jquery-1.10.2.min.js" language="javascript" type="text/javascript" ></script>
+    <script src="js/public.js" language="javascript" type="text/javascript" ></script>
+  </head>
+  <body lang="zh-tw">
+    <div id="logo">by Chestnut Wu</div>
+    <div id="sidemenu"></div>
+    <div class="container">
+      <div class="subject">座標點移動</div>
+      <div class="folder">繪製地圖</div>
+      <p>功能：</p>
+      <p>1. 點擊地圖移動座標點<br>2. 點擊位置會出現資訊視窗</p>
+      <p>參考資料：<a class="show" target="_blank" href="https://developers.google.com/maps/documentation/javascript/adding-a-google-map?hl=zh-tw"></a></p>
+      <div id="map"></div>
+      <pre class="prettyprint"><code class="language-js">
+    function initMap() {
+      var uluru = {lat: 24.911867817255185, lng: 121.65543315726359};
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 4,
+        center: uluru
+      });
+      var marker = new google.maps.Marker({
+        position: uluru,
+        map: map
+      });
+
+      var infowindow = null;
+
+      google.maps.event.addListener(map, "click", function (e) {
+        if (infowindow) {
+            infowindow.close();
+        }
+        marker.setPosition({lat: e.latLng.lat(), lng: e.latLng.lng()});
+      });
+
+      google.maps.event.addListener(marker, 'click', function(e) {
+        if (infowindow) {
+            infowindow.close();
+        }
+        contentString = '&lt;div id=&quot;content&quot;&gt;lat: '+ e.latLng.lat() +'&lt;br&gt;lng' + e.latLng.lng() + '&lt;/div&gt;';
+        infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+        infowindow.open(map, marker);
+      });
+    }
+    </code></pre>
+    </div>
+
+    <script>
+      function initMap() {
+        var uluru = {lat: 24.911867817255185, lng: 121.65543315726359};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+
+        var infowindow = null;
+
+        google.maps.event.addListener(map, "click", function (e) {
+          if (infowindow) {
+              infowindow.close();
+          }
+          marker.setPosition({lat: e.latLng.lat(), lng: e.latLng.lng()});
+        });
+
+        google.maps.event.addListener(marker, 'click', function(e) {
+          if (infowindow) {
+              infowindow.close();
+          }
+          contentString = '<div id="content">lat: '+ e.latLng.lat() +'<br>lng' + e.latLng.lng() + '</div>';
+          infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+          infowindow.open(map, marker);
+        });
+
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap">
+    </script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
+  </body>
+</html>

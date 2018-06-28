@@ -17,81 +17,47 @@
     <div id="logo">by Chestnut Wu</div>
     <div id="sidemenu"></div>
     <div class="container">
-      <div class="subject">座標點移動</div>
-      <div class="folder">位置</div>
-      <p>功能：</p>
-      <p>1. 點擊地圖移動座標點<br>2. 點擊位置會出現資訊視窗</p>
-      <div id="map"></div>
+      <div class="subject">座標</div>
+      <div class="folder">繪製地圖</div>
+      <p>Step1. 設置地圖<br>(a) 標註經緯度<br> (b) 設定center(中心)、zoom(縮放)</p>
       <pre class="prettyprint"><code class="language-js">
-    function initMap() {
-      var uluru = {lat: 24.911867817255185, lng: 121.65543315726359};
-      var map = new google.maps.Map(document.getElementById('map'), {
+      var myLatlng = new google.maps.LatLng(-25.363882,131.044922); //與之相同 => {lat: -25.363882, lng: 131.044922};
+      var mapOptions = {
         zoom: 4,
-        center: uluru
-      });
+        center: myLatlng
+      }
+      var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+      </code></pre>
+      <p>Step2. 放置座標<br>(a) 可以直接在marker內給予map值<br>(b) 可以在外層利用'setMap()'方法</p>
+      <pre class="prettyprint"><code class="language-js">
       var marker = new google.maps.Marker({
-        position: uluru,
-        map: map
+          position: myLatlng,
+          title:"Hello World!",
+          //map: map, => (a)
       });
 
-      var infowindow = null;
-
-      google.maps.event.addListener(map, "click", function (e) {
-        if (infowindow) {
-            infowindow.close();
-        }
-        marker.setPosition({lat: e.latLng.lat(), lng: e.latLng.lng()});
-      });
-
-      google.maps.event.addListener(marker, 'click', function(e) {
-        if (infowindow) {
-            infowindow.close();
-        }
-        contentString = '&lt;div id=&quot;content&quot;&gt;lat: '+ e.latLng.lat() +'&lt;br&gt;lng' + e.latLng.lng() + '&lt;/div&gt;';
-        infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
-        infowindow.open(map, marker);
-      });
-    }
+      // To add the marker to the map, call setMap();
+      marker.setMap(map); => (b)
+    
     </code></pre>
+    <div id="map"></div>
     </div>
 
     <script>
-      function initMap() {
-        var uluru = {lat: 24.911867817255185, lng: 121.65543315726359};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
+    function initMap() {
+      var myLatLng = {lat: -25.363, lng: 131.044};
 
-        var infowindow = null;
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 4,
+        center: myLatLng
+      });
 
-        google.maps.event.addListener(map, "click", function (e) {
-          if (infowindow) {
-              infowindow.close();
-          }
-          marker.setPosition({lat: e.latLng.lat(), lng: e.latLng.lng()});
-        });
-
-        google.maps.event.addListener(marker, 'click', function(e) {
-          if (infowindow) {
-              infowindow.close();
-          }
-          contentString = '<div id="content">lat: '+ e.latLng.lat() +'<br>lng' + e.latLng.lng() + '</div>';
-          infowindow = new google.maps.InfoWindow({
-            content: contentString
-          });
-          infowindow.open(map, marker);
-        });
-
-      }
-    </script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: 'Hello World!'
+      });
+    }
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap">
