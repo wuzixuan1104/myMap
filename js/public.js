@@ -7,8 +7,9 @@
 
 $(function () {
   $a = null;
-  $current = $(location).attr('href').split('/').pop();
+  $current = ( ($current = $(location).attr('href').split('/').pop()) == '' ) ? 'index.html' : $current;
 
+  // localStorage.clear();
   if( localStorage && comparePasstime(localStorage.getItem("menu_datetime"), 10) && ( localStorage.getItem("menu") ) ) {
     var $tmp = $( localStorage.getItem("menu") );
     $tmp.find("a[href$='" + $current + "']").addClass('active');
@@ -29,42 +30,30 @@ $(function () {
     $('body').append( $('<div/>').attr('id', 'logo').text('by Chestnut Wu') );
   }
 
-  $('.icon-chevron-thin-up').click(function() {
+  $('.icon-chevron-thin-up, .icon-chevron-thin-down').click(function() {
     if ($a === null)
       return false;
     if ((index = $a.index( $a.filter('.active') )) === -1)
       return false;
-    index = --index < 0 ? $a.length - 1 : index;
-    window.location.assign($a.eq(index).attr('href'));
-  });
 
-  $('.icon-chevron-thin-down').click(function() {
-    if ($a === null)
-      return false;
-    if ((index = $a.index( $a.filter('.active') )) === -1)
-      return false;
-    index = ++index > $a.length - 1 ? 0 : index;
-    window.location.assign($a.eq(index).attr('href'));
-  });
-
-  //  下午加入選到的話左邊選單active特效
-  $(document).keydown(function(e){
-    if (e.keyCode == 38) {
-      if ($a === null)
-        return false;
-      if ((index = $a.index( $a.filter('.active') )) === -1)
-        return false;
-      index = --index < 0 ? $a.length - 1 : index;
-      window.location.assign($a.eq(index).attr('href'));
-
-    } else if (e.keyCode == 40) {
-      if ($a === null)
-        return false;
-      if ((index = $a.index( $a.filter('.active') )) === -1)
-        return false;
-      index = ++index > $a.length - 1 ? 0 : index;
-      window.location.assign($a.eq(index).attr('href'));
+    switch(this.className) {
+      case 'icon-chevron-thin-up': index = --index < 0 ? $a.length - 1 : index; break;
+      case 'icon-chevron-thin-down': index = ++index > $a.length - 1 ? 0 : index; break;
     }
+    window.location.assign($a.eq(index).attr('href'));
+  });
+
+  $(document).keydown(function(e){
+    if ($a === null)
+      return false;
+    if ((index = $a.index( $a.filter('.active') )) === -1)
+      return false;
+
+    switch(e.keyCode) {
+      case 38: index = --index < 0 ? $a.length - 1 : index; break;
+      case 40: index = ++index > $a.length - 1 ? 0 : index; break;
+    }
+    window.location.assign($a.eq(index).attr('href'));
   });
 });
 

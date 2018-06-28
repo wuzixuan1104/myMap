@@ -125,8 +125,16 @@ html {
         display: block;
         width: 100%;
         text-decoration: none;
-        padding-top: 10px;
         color: rgb(160, 107, 75);
+        line-height: 30px;
+        margin-top: 10px;
+
+        &.active {
+          display: inline-block;
+          color: #97a78c;
+          font-weight: bold;
+          @include border-radius(5px);
+        }
       }
     }
   }
