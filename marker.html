@@ -19,6 +19,7 @@
     <div class="container">
       <div class="subject">座標</div>
       <div class="folder">繪製地圖</div>
+      <h3>新增座標</h3>
       <p>Step1. 設置地圖<br>(a) 標註經緯度<br> (b) 設定center(中心)、zoom(縮放)</p>
       <pre class="prettyprint"><code class="language-js">
       var myLatlng = new google.maps.LatLng(-25.363882,131.044922); //與之相同 => {lat: -25.363882, lng: 131.044922};
@@ -38,9 +39,14 @@
 
       // To add the marker to the map, call setMap();
       marker.setMap(map); => (b)
-    
-    </code></pre>
-    <div id="map"></div>
+      </code></pre>
+
+      <h3>移除座標</h3>
+      <pre class="prettyprint"><code class="language-js">
+      marker.setMap(null);
+      </code></pre>
+
+      <div id="map"></div>
     </div>
 
     <script>
@@ -57,6 +63,7 @@
         map: map,
         title: 'Hello World!'
       });
+
     }
     </script>
     <script async defer
