@@ -17,13 +17,14 @@
     <div id="logo">by Chestnut Wu</div>
     <div id="sidemenu"></div>
     <div class="container">
-      <div class="subject">座標點移動</div>
+      <div class="subject">資訊視窗</div>
       <div class="folder">繪製地圖</div>
       <p>功能：</p>
       <p>1. 點擊地圖移動座標點<br>2. 點擊位置會出現資訊視窗</p>
       <p>參考資料：<a class="show" target="_blank" href="https://developers.google.com/maps/documentation/javascript/adding-a-google-map?hl=zh-tw"></a></p>
       <div id="map"></div>
       <pre class="prettyprint"><code class="language-js">
+
     function initMap() {
       var uluru = {lat: 24.911867817255185, lng: 121.65543315726359};
       var map = new google.maps.Map(document.getElementById('map'), {

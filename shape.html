@@ -19,11 +19,103 @@
     <div class="container">
       <div class="subject">形狀</div>
       <div class="folder">繪製地圖</div>
-      <p>建置中...</p>
+      <h3>基本折線</h3>
+
+      <p>折線設定：<a class="show" href="http://www.oxxostudio.tw/articles/201802/google-maps-9-polyline.html"></a></p>
+      <pre class="prettyprint"><code class="language-js">
+    var $position = {
+      lat: 25.0336962,
+      lng: 121.5643673
+    };
+
+    var $map = new google.maps.Map(document.getElementById('map1'), {
+      zoom: 17,
+      center: $position
+    });
+
+    var $polylinePathPoints = [
+      {lat: 25.033755, lng: 121.565412},
+      {lat: 25.031985, lng: 121.565380},
+      {lat: 25.032083, lng: 121.561324},
+      {lat: 25.033755, lng: 121.565412},
+    ];
+
+    var $polylinePath = new google.maps.Polyline({
+      path: $polylinePathPoints,
+      geodesic: true,
+      strokeColor: '#008800',
+      strokeOpacity: 0.8,
+      strokeWeight: 20,
+      editable: true,
+      geodesic: false,
+      draggable: true
+    });
+
+    $polylinePath.setMap($map);
+
+    $polylinePath.addListener('drag',function(){
+      this.setOptions({
+        strokeColor: '#ff0000'
+      });
+    });
+
+    $polylinePath.addListener('dragend',function(){
+      this.setOptions({
+        strokeColor: '#008800'
+      });
+    });
+      </code></pre>
+      <p>移除折線</p>
+      <pre class="prettyprint"><code class="language-js">
+    $flightPath.setMap(null);
+      </code></pre>
+      <div class="map" id="map1"></div>
     </div>
 
     <script>
+      function initMap() {
+        var $position = {
+          lat: 25.0336962,
+          lng: 121.5643673
+        };
 
+        var $map = new google.maps.Map(document.getElementById('map1'), {
+          zoom: 17,
+          center: $position
+        });
+
+        var $polylinePathPoints = [
+          {lat: 25.033755, lng: 121.565412},
+          {lat: 25.031985, lng: 121.565380},
+          {lat: 25.032083, lng: 121.561324},
+          {lat: 25.033755, lng: 121.565412},
+        ];
+
+        var $polylinePath = new google.maps.Polyline({
+          path: $polylinePathPoints,
+          geodesic: true,
+          strokeColor: '#008800',
+          strokeOpacity: 0.8,
+          strokeWeight: 20,
+          editable: true,
+          geodesic: false,
+          draggable: true
+        });
+
+        $polylinePath.setMap($map);
+
+        $polylinePath.addListener('drag',function(){
+          this.setOptions({
+            strokeColor: '#ff0000'
+          });
+        });
+
+        $polylinePath.addListener('dragend',function(){
+          this.setOptions({
+            strokeColor: '#008800'
+          });
+        });
+      }
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap">

@@ -19,11 +19,81 @@
     <div class="container">
       <div class="subject">資訊視窗</div>
       <div class="folder">繪製地圖</div>
-      <p>建置中...</p>
+      <p>功能：</p>
+      <p>1. 點擊地圖移動座標點<br>2. 點擊位置會出現資訊視窗</p>
+
+      <pre class="prettyprint"><code class="language-js">
+
+    function initMap() {
+      var uluru = {lat: 24.911867817255185, lng: 121.65543315726359};
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 4,
+        center: uluru
+      });
+      var marker = new google.maps.Marker({
+        position: uluru,
+        map: map,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+      });
+
+      var infowindow = null;
+
+      google.maps.event.addListener(map, "click", function (e) {
+        if (infowindow) {
+            infowindow.close();
+        }
+        marker.setPosition({lat: e.latLng.lat(), lng: e.latLng.lng()});
+      });
+
+      google.maps.event.addListener(marker, 'click', function(e) {
+        if (infowindow) {
+            infowindow.close();
+        }
+        contentString = '&lt;div id=&quot;content&quot;&gt;lat: '+ e.latLng.lat() +'&lt;br&gt;lng' + e.latLng.lng() + '&lt;/div&gt;';
+        infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+        infowindow.open(map, marker);
+      });
+    }
+    </code></pre>
+    <div class="map" id="map"></div>
     </div>
 
     <script>
+      function initMap() {
+        var uluru = {lat: 24.911867817255185, lng: 121.65543315726359};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
 
+        var infowindow = null;
+
+        google.maps.event.addListener(map, "click", function (e) {
+          if (infowindow) {
+              infowindow.close();
+          }
+          marker.setPosition({lat: e.latLng.lat(), lng: e.latLng.lng()});
+        });
+
+        google.maps.event.addListener(marker, 'click', function(e) {
+          if (infowindow) {
+              infowindow.close();
+          }
+          contentString = '<div id="content">lat: '+ e.latLng.lat() +'<br>lng' + e.latLng.lng() + '</div>';
+          infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+          infowindow.open(map, marker);
+        });
+
+      }
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap">
