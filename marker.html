@@ -45,27 +45,215 @@
       <pre class="prettyprint"><code class="language-js">
       marker.setMap(null);
       </code></pre>
+      <div class="map" id="map1"></div>
 
-      <div id="map"></div>
+      <h3>手動增加座標</h3>
+      <p>先載入api </p>
+      <pre class="prettyprint"><code class="language-js">
+      &lt;script src=&quot;https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&quot;&gt;&lt;/script&gt;
+      </code></pre>
+      <pre class="prettyprint"><code class="language-js">
+
+      var $labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      var $labelIndex = 0;
+
+      function initialize() {
+        var $bangalore = { lat: 12.97, lng: 77.59 };
+        var $map2 = new google.maps.Map(document.getElementById('map2'), {
+          zoom: 12,
+          center: $bangalore,
+        });
+
+        google.maps.event.addListener($map2, 'click', function(event) {
+          addMarker(event.latLng, $map2);
+        });
+
+        addMarker($bangalore, $map2);
+      }
+
+      function addMarker(location, map) {
+        var $marker = new google.maps.Marker({
+          position: location,
+          label: $labels[$labelIndex++ % $labels.length],
+          map: map
+        });
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+      </code></pre>
+      <div class="map" id="map2"></div>
+
+      <h3>加入icon</h3>
+      <pre class="prettyprint"><code class="language-js">
+      var $map3 = new google.maps.Map(document.getElementById('map3'), {
+        zoom: 4,
+        center: {lat: -33, lng: 151}
+      });
+
+      var $image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+      var $beachMarker = new google.maps.Marker({
+        position: {lat: -33.890, lng: 151.274},
+        map: $map3,
+        icon: $image
+      });
+      </code></pre>
+      <div class="map" id="map3"></div>
+
+      <h3>加入複雜icon</h3>
+      <pre class="prettyprint"><code class="language-js">
+    function initMap() {
+      var $map4 = new google.maps.Map(document.getElementById('map4'), {
+        zoom: 10,
+        center: {lat: -33.9, lng: 151.2}
+      });
+
+      setMarkers($map4);
+    }
+
+    var beaches = [
+        ['Bondi Beach', -33.890542, 151.274856, 4],
+        ['Coogee Beach', -33.923036, 151.259052, 5],
+        ['Cronulla Beach', -34.028249, 151.157507, 3],
+        ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+        ['Maroubra Beach', -33.950198, 151.259302, 1]
+    ];
+
+    function setMarkers(map) {
+      var image = {
+        url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+        //寬高
+        size: new google.maps.Size(20, 32),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(0, 32)
+      };
+      //定義可點擊範圍
+      var shape = {
+        coords: [1, 1, 1, 20, 18, 20, 18, 1],
+        type: 'poly'
+      };
+      for (var i = 0; i < beaches.length; i++) {
+        var beach = beaches[i];
+        var marker = new google.maps.Marker({
+          position: {lat: beach[1], lng: beach[2]},
+          map: map,
+          icon: image,
+          shape: shape,
+          title: beach[0],
+          zIndex: beach[3]
+        });
+      }
+    }
+      </code></pre>
+      <div class="map" id="map4"></div>
     </div>
 
     <script>
     function initMap() {
-      var myLatLng = {lat: -25.363, lng: 131.044};
-
-      var map = new google.maps.Map(document.getElementById('map'), {
+      var $myLatLng = {lat: -25.363, lng: 131.044};
+      //靜態座標
+      var $map1 = new google.maps.Map(document.getElementById('map1'), {
         zoom: 4,
-        center: myLatLng
+        center: $myLatLng,
+
+      });
+      var $marker1 = new google.maps.Marker({
+        position: $myLatLng,
+        map: $map1,
+        title: 'Hello World!',
+        draggable:true,
       });
 
-      var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        title: 'Hello World!'
+      //加入icon ==========================================================
+      var $map3 = new google.maps.Map(document.getElementById('map3'), {
+        zoom: 4,
+        center: {lat: -33, lng: 151}
       });
 
+      var $image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+      var $beachMarker = new google.maps.Marker({
+        position: {lat: -33.890, lng: 151.274},
+        map: $map3,
+        icon: $image
+      });
+
+      //加入複雜icon
+      var $map4 = new google.maps.Map(document.getElementById('map4'), {
+        zoom: 10,
+        center: {lat: -33.9, lng: 151.2}
+      });
+
+      setMarkers($map4);
+    }
+
+    var beaches = [
+        ['Bondi Beach', -33.890542, 151.274856, 4],
+        ['Coogee Beach', -33.923036, 151.259052, 5],
+        ['Cronulla Beach', -34.028249, 151.157507, 3],
+        ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+        ['Maroubra Beach', -33.950198, 151.259302, 1]
+    ];
+
+    function setMarkers(map) {
+      var image = {
+        url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+        //寬高
+        size: new google.maps.Size(20, 32),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(0, 32)
+      };
+
+      //定義可點擊範圍
+      var shape = {
+        coords: [1, 1, 1, 20, 18, 20, 18, 1],
+        type: 'poly'
+      };
+      for (var i = 0; i < beaches.length; i++) {
+        var beach = beaches[i];
+        var marker = new google.maps.Marker({
+          position: {lat: beach[1], lng: beach[2]},
+          map: map,
+          icon: image,
+          shape: shape,
+          title: beach[0],
+          zIndex: beach[3]
+        });
+      }
     }
     </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY"></script>
+    <script>
+      var $labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      var $labelIndex = 0;
+
+      function initialize() {
+        var $bangalore = { lat: 12.97, lng: 77.59 };
+        var $map2 = new google.maps.Map(document.getElementById('map2'), {
+          zoom: 12,
+          center: $bangalore,
+        });
+
+        google.maps.event.addListener($map2, 'click', function(event) {
+          addMarker(event.latLng, $map2);
+        });
+
+        //預設值
+        addMarker($bangalore, $map2);
+      }
+
+      function addMarker(location, map) {
+        var $marker = new google.maps.Marker({
+          position: location,
+          label: $labels[$labelIndex++ % $labels.length],
+          map: map
+        });
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap">
     </script>

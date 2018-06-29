@@ -32,7 +32,9 @@
       });
       var marker = new google.maps.Marker({
         position: uluru,
-        map: map
+        map: map,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
       });
 
       var infowindow = null;

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tw">
+  <head>
+    <meta http-equiv="Content-Language" content="zh-tw" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
+
+    <title>🌰 Google Map Application</title>
+
+    <link href="css/public.css" rel="stylesheet" type="text/css" />
+    <link href="css/icon.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/jquery_v1.10.2/jquery-1.10.2.min.js" language="javascript" type="text/javascript" ></script>
+    <script src="js/public.js" language="javascript" type="text/javascript" ></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY"></script>
+    <script>
+       var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+       var labelIndex = 0;
+
+       function initialize() {
+         var bangalore = { lat: 12.97, lng: 77.59 };
+         var map = new google.maps.Map(document.getElementById('map'), {
+           zoom: 12,
+           center: bangalore
+         });
+
+         google.maps.event.addListener(map, 'click', function(event) {
+           addMarker(event.latLng, map);
+         });
+
+         addMarker(bangalore, map);
+       }
+
+       function addMarker(location, map) {
+         var marker = new google.maps.Marker({
+           position: location,
+           label: labels[labelIndex++ % labels.length],
+           map: map
+         });
+       }
+
+       google.maps.event.addDomListener(window, 'load', initialize);
+    </script> -->
+  </head>
+  <body lang="zh-tw">
+    <div id="logo">by Chestnut Wu</div>
+    <div id="sidemenu"></div>
+    <div class="container">
+      <div class="subject">座標</div>
+      <div class="folder">繪製地圖</div>
+      <div class="map" id="map"></div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY"></script>
+    <script>
+       var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+       var labelIndex = 0;
+
+       function initialize() {
+         var bangalore = { lat: 12.97, lng: 77.59 };
+         var map = new google.maps.Map(document.getElementById('map'), {
+           zoom: 12,
+           center: bangalore
+         });
+
+         google.maps.event.addListener(map, 'click', function(event) {
+           addMarker(event.latLng, map);
+         });
+
+         addMarker(bangalore, map);
+       }
+
+       function addMarker(location, map) {
+         var marker = new google.maps.Marker({
+           position: location,
+           label: labels[labelIndex++ % labels.length],
+           map: map
+         });
+       }
+
+       google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap">
+    </script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
+  </body>
+</html>

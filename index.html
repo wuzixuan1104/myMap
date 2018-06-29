@@ -20,7 +20,7 @@
       <div class="folder">小小介紹</div>
       <p>哈囉！我是個小小菜鳥工程師！姿萱兒：）<br>我會把日常地圖應用練習彙整起來放在這邊，希望我可以持之以恆摟！</p>
       <p>程式語言：JavaScript<br>參考資料：<a class="show" target="_blank" href="https://developers.google.com/maps/documentation/javascript/get-api-key?hl=zh-tw"></a></p>
-      <div id="map"></div>
+      <div class="map" id="map"></div>
     </div>
 
     <script>
@@ -32,7 +32,17 @@
         });
         var marker = new google.maps.Marker({
           position: uluru,
-          map: map
+          map: map,
+          draggable: true,
+          animation: google.maps.Animation.DROP,
+        });
+
+        marker.addListener('click', function() {
+          if (this.getAnimation() !== null) {
+            this.setAnimation(null);
+          } else {
+            this.setAnimation(google.maps.Animation.BOUNCE);
+          }
         });
 
         var infowindow = null;
@@ -40,7 +50,10 @@
         infowindow = new google.maps.InfoWindow({
           content: contentString
         });
-        infowindow.open(map, marker);
+
+        window.setTimeout(function() {
+          infowindow.open(map, marker);
+        }, 1000)
 
         google.maps.event.addListener(marker, 'click', function(e) {
           infowindow.open(map, marker);

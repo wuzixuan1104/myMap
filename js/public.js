@@ -9,7 +9,7 @@ $(function () {
   $a = null;
   $current = ( ($current = $(location).attr('href').split('/').pop()) == '' ) ? 'index.html' : $current;
 
-  // localStorage.clear();
+  localStorage.clear();
   if( localStorage && comparePasstime(localStorage.getItem("menu_datetime"), 10) && ( localStorage.getItem("menu") ) ) {
     var $tmp = $( localStorage.getItem("menu") );
     $tmp.find("a[href$='" + $current + "']").addClass('active');

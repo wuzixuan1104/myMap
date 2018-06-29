@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="tw">
+  <head>
+    <meta http-equiv="Content-Language" content="zh-tw" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
+
+    <title>🌰 Google Map Application</title>
+
+    <link href="css/public.css" rel="stylesheet" type="text/css" />
+    <link href="css/icon.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/jquery_v1.10.2/jquery-1.10.2.min.js" language="javascript" type="text/javascript" ></script>
+    <script src="js/public.js" language="javascript" type="text/javascript" ></script>
+  </head>
+  <body lang="zh-tw">
+    <div id="logo">by Chestnut Wu</div>
+    <div id="sidemenu"></div>
+    <div class="container">
+      <div class="subject">動態化座標</div>
+      <div class="folder">繪製地圖</div>
+
+      <h3>動態顯示單一座標</h3>
+      <pre class="prettyprint"><code class="language-js">
+      var map1 = new google.maps.Map(document.getElementById('map1'), {
+        zoom: 13,
+        center: {lat: 59.325, lng: 18.070},
+        clickableIcons: false,
+        gestureHandling: 'greedy',
+        disableDefaultUI: true,
+      });
+      var marker1 = new google.maps.Marker({
+        map: map2,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        position: {lat: 59.327, lng: 18.067},
+      });
+
+      marker1.addListener('click', function() {
+        if (this.getAnimation() !== null) {
+          this.setAnimation(null);
+        } else {
+          this.setAnimation(google.maps.Animation.BOUNCE);
+        }
+      });
+      </code></pre>
+
+      <div class="map" id="map1"></div>
+
+      <h3>動態顯示多個座標</h3>
+      <pre class="prettyprint"><code class="language-js">
+      var $neighborhoods = [
+        {lat: 52.511, lng: 13.447},
+        {lat: 52.549, lng: 13.422},
+        {lat: 52.497, lng: 13.396},
+        {lat: 52.517, lng: 13.394}
+      ];
+      var $markers = [];
+      var $map2;
+
+      function initMap() {
+        $map2 = new google.maps.Map(document.getElementById('map2'), {
+          zoom: 12,
+          center: {lat: 52.520, lng: 13.410},
+          clickableIcons: false,
+          gestureHandling: 'greedy',
+          disableDefaultUI: true,
+        });
+      }
+      //點擊執行此function
+      function drop() {
+        //若已有值初始需清掉
+        if ( $markers.length > 0 ) {
+          for (var i = 0; i < $markers.length; i++) {
+            $markers[i].setMap(null);
+          }
+          $markers = [];
+        }
+        for ( var i = 0; i < $neighborhoods.length; i++ ) {
+          //此timeout必須使用function呼叫回傳，否則無法等待時間結束後才執行下個動作
+          addMarkerWithTimeout($neighborhoods[i], i * 200);
+        }
+      }
+
+      function addMarkerWithTimeout(position, timeout) {
+        window.setTimeout(function() {
+          var marker = new google.maps.Marker({
+            position: position,
+            map: $map2,
+            animation: google.maps.Animation.DROP
+          });
+          addAnimationBounce(marker);
+          $markers.push(marker);
+        }, timeout);
+      }
+
+      function addAnimationBounce(marker) {
+        marker.addListener('click', function() {
+          if (this.getAnimation() !== null) {
+            this.setAnimation(null);
+          } else {
+            this.setAnimation(google.maps.Animation.BOUNCE);
+          }
+        });
+      }
+      </code></pre>
+      <div class="panel">
+        <button onclick="drop()">點擊我</button>
+      </div>
+      <div class="map" id="map2"></div>
+    </div>
+
+    <script>
+    // use for 多個
+    var $neighborhoods = [
+     {lat: 52.511, lng: 13.447},
+     {lat: 52.549, lng: 13.422},
+     {lat: 52.497, lng: 13.396},
+     {lat: 52.517, lng: 13.394}
+    ];
+    var $markers = [];
+    var $map2;
+
+    function initMap() {
+
+      //動態座標 ============================================================
+      var $map1 = new google.maps.Map(document.getElementById('map1'), {
+        zoom: 13,
+        center: {lat: 59.325, lng: 18.070},
+        clickableIcons: false,
+        // gestureHandling: 'greedy',
+        // disableDefaultUI: true,
+      });
+      var $marker1 = new google.maps.Marker({
+        map: $map1,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        position: {lat: 59.327, lng: 18.067},
+      });
+      addAnimationBounce($marker1);
+
+      //多個動態座標 =========================================================
+      $map2 = new google.maps.Map(document.getElementById('map2'), {
+        zoom: 12,
+        center: {lat: 52.520, lng: 13.410},
+        clickableIcons: false,
+        // gestureHandling: 'greedy',
+        // disableDefaultUI: true,
+      });
+    }
+
+    function drop() {
+      if( $markers.length > 0 ) {
+        for (var i = 0; i < $markers.length; i++) {
+          $markers[i].setMap(null);
+        }
+        $markers = [];
+      }
+      for( var i = 0; i < $neighborhoods.length; i++ ) {
+        //此timeout必須使用function呼叫回傳，否則無法等待時間結束後才執行下個動作
+        addMarkerWithTimeout($neighborhoods[i], i * 200);
+      }
+    }
+
+    function addMarkerWithTimeout(position, timeout) {
+      window.setTimeout(function() {
+        var marker = new google.maps.Marker({
+          position: position,
+          map: $map2,
+          animation: google.maps.Animation.DROP,
+        });
+        addAnimationBounce(marker);
+        $markers.push(marker);
+      }, timeout);
+    }
+
+    function addAnimationBounce(marker) {
+      marker.addListener('click', function() {
+        if (this.getAnimation() !== null) {
+          this.setAnimation(null);
+        } else {
+          this.setAnimation(google.maps.Animation.BOUNCE);
+        }
+      });
+    }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap">
+    </script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
+  </body>
+</html>
