@@ -20,7 +20,7 @@ gulp.task ('default', function () {
     if (path.length < 3) return console.log (colors.red ('\n\n !!! 錯誤 !!! 資料夾位置有誤！\n\n'));
     path.pop ();
     var content = buffer.replace (/http_path\s*=\s*"([\/A-Za-z0-9_-]*)"/g, 'http_path = "/' + path.pop () + '"');
-    
+
     writeFile ('config.rb', content, function(err) {
       if (err) return console.log ('\n ' + colors.red ('•') + colors.red (' [錯誤] ') + '寫入檔案失敗！');
       else console.log ('\n ' + colors.red ('•') + colors.yellow (' [設定] ') + '設定 ' + colors.magenta ('config.rb') + ' 檔案成功！');
@@ -87,7 +87,7 @@ gulp.task ('watch', function () {
     if (path.length < 3) return console.log (colors.red ('\n\n !!! 錯誤 !!! 資料夾位置有誤！\n\n'));
     path.pop ();
     var content = buffer.replace (/http_path\s*=\s*"([\/A-Za-z0-9_-]*)"/g, 'http_path = "/' + path.pop () + '"');
-    
+
     writeFile ('config.rb', content, function(err) {
       if (err) return console.log ('\n ' + colors.red ('•') + colors.red (' [錯誤] ') + '寫入檔案失敗！');
       else console.log ('\n ' + colors.red ('•') + colors.yellow (' [設定] ') + '設定 ' + colors.magenta ('config.rb') + ' 檔案成功！');
@@ -165,9 +165,9 @@ gulp.task ('js-uglify', function () {
       .pipe (gulp.dest ('./root/js/'));
 });
 gulp.task ('minify-html', function () {
-  gulp.src ('./root/*.html')
-      .pipe (htmlmin ({collapseWhitespace: true}))
-      .pipe (gulp.dest ('./root/'));
+  // gulp.src ('./root/*.html')
+  //     .pipe (htmlmin ({collapseWhitespace: true}))
+  //     .pipe (gulp.dest ('./root/'));
 });
 
 // // ===================================================
