@@ -19,10 +19,58 @@
     <div class="container">
       <div class="subject">地面覆蓋</div>
       <div class="folder">繪製地圖</div>
-      <p>建置中...</p>
+      <h3>加入圖片</h3>
+      <pre class="prettyprint"><code class="language-js">
+    var $historicalOverlay;
+
+    function initMap() {
+      var $map = new google.maps.Map(document.getElementById('map1'), {
+        zoom: 13,
+        center: {lat: 40.740, lng: -74.18}
+      });
+
+      var $imageBounds = {
+        north: 40.773941,
+        south: 40.712216,
+        east: -74.12544,
+        west: -74.22655
+      };
+
+      $historicalOverlay = new google.maps.GroundOverlay(
+          'https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
+          $imageBounds);
+      $historicalOverlay.setMap($map);
+    }
+
+    //移除
+    function removeOverlay() {
+      historicalOverlay.setMap(null);
+    }
+      </code></pre>
+      <div class="map" id="map1"></div>
     </div>
 
     <script>
+    var $historicalOverlay;
+
+    function initMap() {
+      var $map = new google.maps.Map(document.getElementById('map1'), {
+        zoom: 13,
+        center: {lat: 40.740, lng: -74.18}
+      });
+
+      var $imageBounds = {
+        north: 40.773941,
+        south: 40.712216,
+        east: -74.12544,
+        west: -74.22655
+      };
+
+      $historicalOverlay = new google.maps.GroundOverlay(
+          'https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
+          $imageBounds);
+      $historicalOverlay.setMap($map);
+    }
 
     </script>
     <script async defer

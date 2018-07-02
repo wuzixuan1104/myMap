@@ -19,11 +19,189 @@
     <div class="container">
       <div class="subject">符號</div>
       <div class="folder">繪製地圖</div>
-      <p>建置中...</p>
+      <h3>加入符號至座標</h3>
+      <p>更多符號標示：<a class="show" href="https://developers.google.com/maps/documentation/javascript/symbols?hl=zh-tw#predefined"></a></p>
+      <pre class="prettyprint"><code class="language-js">
+    var $map1 = new google.maps.Map( document.getElementById('map1'), {
+      zoom: 4,
+      center: {lat: -25.363882, lng: 131.044922},
+    });
+
+    var $marker1 = new google.maps.Marker({
+      position: $map1.getCenter(),
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 10,
+      },
+      draggable: true,
+      map: $map1,
+    });
+      </code></pre>
+      <div class="map" id="map1"></div>
+
+      <h3>折線加入符號</h3>
+      <pre class="prettyprint"><code class="language-js">
+    //箭頭
+    var $lineSymbol = { path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW };
+    var $line = new google.maps.Polyline({
+      path: [{lat: 22.291, lng: 153.027}, {lat: 18.291, lng: 153.027}],
+      icons: [
+        {
+          icon: $lineSymbol,
+          offset: '100%',
+        }
+      ],
+      map: $map2,
+    });
+
+    //虛線
+    var $lineSymbol2 = {
+      path: 'M 0,-1 0,1',
+      strokeOpacity: 1,
+      scale: 4
+    };
+    var $line2 = new google.maps.Polyline({
+      path: [{lat: 22.291, lng: 150.027}, {lat: 18.291, lng: 150.027}],
+      strokeOpacity: 0,
+      icons: [{
+        icon: $lineSymbol2,
+        offset: '0',
+        repeat: '20px'
+      }],
+      map: $map2
+    });
+      </code></pre>
+      <div class="map" id="map2"></div>
+
+      <h3>動態符號</h3>
+      <pre class="prettyprint"><code class="language-js">
+  function initMap() {
+    var $map3 = new google.maps.Map( document.getElementById('map3'), {
+      zoom: 6,
+      center: {lat: 20.291, lng: 153.027},
+      mapTypeId: 'terrain',
+    });
+
+    var $lineSymbol3 = {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 8,
+      strokeColor: '#393',
+    };
+
+    var $line3 = new google.maps.Polyline({
+      path: [{lat: 22.291, lng: 153.02}, {lat: 18.291, lng: 153.027}],
+      icons: [{
+        icon: $lineSymbol3,
+        offset: '100%'
+      }],
+      map: $map3
+    });
+
+    animateCircle($line3);
+  }
+
+  function animateCircle(line) {
+    var count = 0;
+    window.setInterval( function() {
+      count = (count + 1) % 200;
+      var icons = line.get('icons');
+      icons[0].offset = count / 2 + '%';
+      line.set('icons', icons);
+    }, 20);
+  }
+      </code></pre>
+      <div class="map" id="map3"></div>
     </div>
 
     <script>
 
+      function initMap() {
+        // 座標加入折線
+        var $map1 = new google.maps.Map( document.getElementById('map1'), {
+          zoom: 4,
+          center: {lat: -25.363882, lng: 131.044922},
+        });
+
+        var $marker1 = new google.maps.Marker({
+          position: $map1.getCenter(),
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 10,
+          },
+          draggable: true,
+          map: $map1,
+        });
+
+        // 符號加入折線 =======================================================================
+        var $map2 = new google.maps.Map(document.getElementById('map2'), {
+          zoom: 6,
+          center: {lat: 20.291, lng: 153.027},
+          mapTypeId: 'terrain'
+        });
+
+        //箭頭
+        var $lineSymbol = { path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW };
+        //虛線
+        var $lineSymbol2 = {
+          path: 'M 0,-1 0,1',
+          strokeOpacity: 1,
+          scale: 4
+        };
+        var $line = new google.maps.Polyline({
+          path: [{lat: 22.291, lng: 153.027}, {lat: 18.291, lng: 153.027}],
+          icons: [
+            {
+              icon: $lineSymbol,
+              offset: '100%',
+            }
+          ],
+          map: $map2,
+        });
+
+        var $line2 = new google.maps.Polyline({
+          path: [{lat: 22.291, lng: 150.027}, {lat: 18.291, lng: 150.027}],
+          strokeOpacity: 0,
+          icons: [{
+            icon: $lineSymbol2,
+            offset: '0',
+            repeat: '20px'
+          }],
+          map: $map2
+        });
+        //動態 ===============================================================
+        var $map3 = new google.maps.Map( document.getElementById('map3'), {
+          zoom: 6,
+          center: {lat: 20.291, lng: 153.027},
+          mapTypeId: 'terrain',
+        });
+
+        var $lineSymbol3 = {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 8,
+          strokeColor: '#393',
+        };
+
+        var $line3 = new google.maps.Polyline({
+          path: [{lat: 22.291, lng: 153.02}, {lat: 18.291, lng: 153.027}],
+          icons: [{
+            icon: $lineSymbol3,
+            offset: '100%'
+          }],
+          map: $map3
+        });
+
+        animateCircle($line3);
+      }
+
+      function animateCircle(line) {
+        var count = 0;
+        window.setInterval( function() {
+          count = (count + 1) % 200;
+          var icons = line.get('icons');
+          icons[0].offset = count / 2 + '%';
+          line.set('icons', icons);
+        }, 20);
+      }
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap">
