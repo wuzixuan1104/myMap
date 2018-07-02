@@ -1,26 +1,4 @@
-<!DOCTYPE html>
-<html lang="tw">
-  <head>
-    <meta http-equiv="Content-Language" content="zh-tw" />
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
-
-    <title>🌰 Google Map Application</title>
-
-    <link href="css/public.css" rel="stylesheet" type="text/css" />
-    <link href="css/icon.css" rel="stylesheet" type="text/css" />
-
-    <script src="js/jquery_v1.10.2/jquery-1.10.2.min.js" language="javascript" type="text/javascript" ></script>
-    <script src="js/public.js" language="javascript" type="text/javascript" ></script>
-  </head>
-  <body lang="zh-tw">
-    <div id="logo">by Chestnut Wu</div>
-    <div id="sidemenu"></div>
-    <div class="container">
-      <div class="subject">地面覆蓋</div>
-      <div class="folder">繪製地圖</div>
-      <h3>加入圖片</h3>
-      <pre class="prettyprint"><code class="language-js">
+<!DOCTYPE html><html lang="tw"><head><meta http-equiv="Content-Language" content="zh-tw"><meta http-equiv="Content-type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"><title>🌰 Google Map Application</title><link href="css/public.css" rel="stylesheet" type="text/css"><link href="css/icon.css" rel="stylesheet" type="text/css"><script src="js/jquery_v1.10.2/jquery-1.10.2.min.js" language="javascript" type="text/javascript"></script><script src="js/public.js" language="javascript" type="text/javascript"></script></head><body lang="zh-tw"><div id="logo">by Chestnut Wu</div><div id="sidemenu"></div><div class="container"><div class="subject">地面覆蓋</div><div class="folder">繪製地圖</div><h3>加入圖片</h3><pre class="prettyprint"><code class="language-js">
     var $historicalOverlay;
 
     function initMap() {
@@ -46,12 +24,7 @@
     function removeOverlay() {
       historicalOverlay.setMap(null);
     }
-      </code></pre>
-      <div class="map" id="map1"></div>
-    </div>
-
-    <script>
-    var $historicalOverlay;
+      </code></pre><div class="map" id="map1"></div></div><script>var $historicalOverlay;
 
     function initMap() {
       var $map = new google.maps.Map(document.getElementById('map1'), {
@@ -70,12 +43,4 @@
           'https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
           $imageBounds);
       $historicalOverlay.setMap($map);
-    }
-
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap">
-    </script>
-    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
-  </body>
-</html>
+    }</script><script async defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script></body></html>

@@ -1,36 +1,8 @@
-<!DOCTYPE html>
-<html lang="tw">
-  <head>
-    <meta http-equiv="Content-Language" content="zh-tw" />
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
-
-    <title>🌰 Google Map Application</title>
-
-    <link href="css/public.css" rel="stylesheet" type="text/css" />
-    <link href="css/icon.css" rel="stylesheet" type="text/css" />
-
-    <script src="js/jquery_v1.10.2/jquery-1.10.2.min.js" language="javascript" type="text/javascript" ></script>
-    <script src="js/public.js" language="javascript" type="text/javascript" ></script>
-  </head>
-  <body lang="zh-tw">
-    <div id="logo">by Chestnut Wu</div>
-    <div id="sidemenu"></div>
-    <div class="container">
-      <div class="subject">座標叢集</div>
-      <div class="folder">位置</div>
-      <p>功能：</p>
-      <p>1. 將多筆座標製作叢集</p>
-      <div id="map"></div>
-      <pre class="prettyprint">
+<!DOCTYPE html><html lang="tw"><head><meta http-equiv="Content-Language" content="zh-tw"><meta http-equiv="Content-type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"><title>🌰 Google Map Application</title><link href="css/public.css" rel="stylesheet" type="text/css"><link href="css/icon.css" rel="stylesheet" type="text/css"><script src="js/jquery_v1.10.2/jquery-1.10.2.min.js" language="javascript" type="text/javascript"></script><script src="js/public.js" language="javascript" type="text/javascript"></script></head><body lang="zh-tw"><div id="logo">by Chestnut Wu</div><div id="sidemenu"></div><div class="container"><div class="subject">座標叢集</div><div class="folder">位置</div><p>功能：</p><p>1. 將多筆座標製作叢集</p><div id="map"></div><pre class="prettyprint">
         <code class="language-js">
 
         </code>
-      </pre>
-    </div>
-
-    <script>
-    function initMap() {
+      </pre></div><script>function initMap() {
       var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 3,
         center: {lat: -28.024, lng: 140.887}
@@ -74,13 +46,4 @@
         {lat: -42.734358, lng: 147.501315},
         {lat: -42.735258, lng: 147.438000},
         {lat: -43.999792, lng: 170.463352}
-      ];
-    </script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap">
-    </script>
-    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
-  </body>
-</html>
+      ];</script><script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script><script async defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script></body></html>
