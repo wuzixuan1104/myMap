@@ -22,6 +22,7 @@
       <h3>新增座標</h3>
       <p>Step1. 設置地圖<br>(a) 標註經緯度<br> (b) 設定center(中心)、zoom(縮放)</p>
       <pre class="prettyprint"><code class="language-js">
+
       var myLatlng = new google.maps.LatLng(-25.363882,131.044922); //與之相同 => {lat: -25.363882, lng: 131.044922};
       var mapOptions = {
         zoom: 4,
@@ -39,6 +40,7 @@
 
       // To add the marker to the map, call setMap();
       marker.setMap(map); => (b)
+
       </code></pre>
 
       <h3>移除座標</h3>
@@ -100,7 +102,7 @@
       </code></pre>
       <div class="map" id="map3"></div>
 
-      <!-- <h3>加入複雜icon</h3>
+      <h3>加入複雜icon</h3>
       <pre class="prettyprint"><code class="language-js">
     function initMap() {
       var $map4 = new google.maps.Map(document.getElementById('map4'), {
@@ -144,7 +146,7 @@
         });
       }
     }
-      </code></pre> -->
+      </code></pre>
       <div class="map" id="map4"></div>
     </div>
 
@@ -155,7 +157,6 @@
       var $map1 = new google.maps.Map(document.getElementById('map1'), {
         zoom: 4,
         center: $myLatLng,
-
       });
       var $marker1 = new google.maps.Marker({
         position: $myLatLng,
@@ -185,7 +186,9 @@
 
       setMarkers($map4);
     }
+    </script>
 
+    <script>
     var beaches = [
         ['Bondi Beach', -33.890542, 151.274856, 4],
         ['Coogee Beach', -33.923036, 151.259052, 5],
@@ -252,7 +255,6 @@
 
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
-
 
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap">

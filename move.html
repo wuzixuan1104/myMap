@@ -24,7 +24,6 @@
       <p>參考資料：<a class="show" target="_blank" href="https://developers.google.com/maps/documentation/javascript/adding-a-google-map?hl=zh-tw"></a></p>
       <div id="map"></div>
       <pre class="prettyprint"><code class="language-js">
-
     function initMap() {
       var uluru = {lat: 24.911867817255185, lng: 121.65543315726359};
       var map = new google.maps.Map(document.getElementById('map'), {
@@ -58,11 +57,7 @@
         infowindow.open(map, marker);
       });
     }
-    </code></pre>
-    </div>
-
-    <script>
-      function initMap() {
+    </code></pre></div><script>function initMap() {
         var uluru = {lat: 24.911867817255185, lng: 121.65543315726359};
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 4,
@@ -93,11 +88,8 @@
           infowindow.open(map, marker);
         });
 
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap">
-    </script>
+      }</script>
+    <script async defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&callback=initMap"></script>
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
   </body>
-</html>
+  </html>
