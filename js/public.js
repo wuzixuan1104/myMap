@@ -23,7 +23,7 @@ $(function() {
                 index = ++index > $a.length - 1 ? 0 : index
         }
         window.location.assign($a.eq(index).attr("href"))
-        
+
     }), $(document).keydown(function(e) {
         if (null === $a) return !1;
         if (-1 === (index = $a.index($a.filter(".active")))) return !1;
@@ -39,7 +39,7 @@ $(function() {
 });
 
 function sidemenuHandler() {
-    $.get("sidemenu.html", function(e) {
+    $.get("sidemenu.html?t=" + new Date().getTime(), function(e) {
         localStorage && (localStorage.setItem("menu", e), localStorage.setItem("menu_datetime", new Date));
         var n = $(e);
         n.find("a[href$='" + $current + "']").addClass("active"), $a = n.find(".box a"), $("#sidemenu").append(n)
