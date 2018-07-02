@@ -70,9 +70,201 @@
     $flightPath.setMap(null);
       </code></pre>
       <div class="map" id="map1"></div>
+
+      <h3>折線路線圖</h3>
+      <pre class="prettyprint"><code class="language-js">
+    var $map2;
+    var $poly2;
+
+    function initMap() {
+      $map2 = new google.maps.Map( document.getElementById('map2'), {
+        zoom: 7,
+        center: {lat: 41.879, lng: -87.624},
+      });
+
+      $poly2 = new google.maps.Polyline({
+        strokeColor: '#000000',
+        strokeOpacity: 1.0,
+        strokeWeight: 3
+      });
+      $poly2.setMap($map2);
+      $map2.addListener('click', addLatlng );
+    }
+
+    function addLatlng(event) {
+      var path = $poly2.getPath();
+      path.push(event.latLng);
+
+      var marker = new google.maps.Marker({
+        position: event.latLng,
+        title: '#' + path.getLength(),
+        map: $map2,
+      });
+    }
+      </code></pre>
+      <p>請點擊地圖</p>
+      <div class="map" id="map2"></div>
+
+      <h3>三角形地圖</h3>
+      <pre class="prettyprint"><code class="language-js">
+    var $map3 = new google.maps.Map( document.getElementById('map3'), {
+      zoom: 5,
+      center: {lat: 24.886, lng: -70.268},
+      mapTypeId: 'terrain',
+    });
+    var $outerCoords = [
+      {lat: 25.774, lng: -80.190},
+      {lat: 18.466, lng: -66.118},
+      {lat: 32.321, lng: -64.757}
+    ];
+
+    var $innerCoords = [
+      {lat: 28.745, lng: -70.579},
+      {lat: 29.570, lng: -67.514},
+      {lat: 27.339, lng: -66.668}
+    ];
+
+
+    var $trianShape = new google.maps.Polygon({
+      paths: [$outerCoords, $innerCoords],
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      draggable: true, //可拖移
+      geodesic: true,
+    });
+
+    $trianShape.setMap($map3);
+      </code></pre>
+      <div class="map" id="map3"></div>
+
+      <h3>長方形地圖</h3>
+      <pre class="prettyprint"><code class="language-js">
+    var $map4 = new google.maps.Map(document.getElementById('map4'), {
+      zoom: 11,
+      center: {lat: 33.678, lng: -116.243},
+      mapTypeId: 'terrain'
+    });
+
+    var rectangle = new google.maps.Rectangle({
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: $map4,
+      editable: true, //可編輯
+      bounds: {
+        north: 33.685,
+        south: 33.671,
+        east: -116.234,
+        west: -116.251
+      }
+      //取得map邊界
+      // bounds : $map4.getBounds(),
+    });
+      </code></pre>
+      <div class="map" id="map4"></div>
+
+      <h3>圓形地圖</h3>
+      <pre class="prettyprint"><code class="language-js">
+    var $citymap = {
+      chicago: {
+        center: {lat: 41.878, lng: -87.629},
+        population: 2714856
+      },
+      newyork: {
+        center: {lat: 40.714, lng: -74.005},
+        population: 8405837
+      },
+      losangeles: {
+        center: {lat: 34.052, lng: -118.243},
+        population: 3857799
+      },
+      vancouver: {
+        center: {lat: 49.25, lng: -123.1},
+        population: 603502
+      }
+    };
+
+    var $map5 = new google.maps.Map( document.getElementById('map5'), {
+      zoom: 4,
+      center: {lat: 37.090, lng: -95.712},
+      mapTypeId: 'terrain',
+    });
+
+    for ( var $city in $citymap ) {
+      var $cityCircle = new google.maps.Circle({
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        map: $map5,
+        center: $citymap[$city].center,
+        radius: Math.sqrt($citymap[$city].population) * 100
+      });
+    }
+  </code></pre>
+      <div class="map" id="map5"></div>
+      <h3>Shape 事件</h3>
+      <a class="show" href="https://developers.google.com/maps/documentation/javascript/shapes?hl=zh-tw#editable_events"></a>
+      <p>編輯Shape時跳出視窗</p>
+      <pre class="prettyprint"><code class="language-js">
+    var $map6;
+    var $rectangle6;
+    var $infoWindow6;
+
+    function initMap() {
+      $map6 = new google.maps.Map( document.getElementById('map6'), {
+        zoom: 9,
+        center: {lat: 44.5452, lng: -78.5389},
+      })
+
+      var $bounds = {
+        north: 44.599,
+        south: 44.490,
+        east: -78.443,
+        west: -78.649
+      };
+
+      $rectangle6 = new google.maps.Rectangle({
+        bounds: $bounds,
+        editable: true,
+        draggable: true,
+      });
+
+      $rectangle6.setMap($map6);
+      $rectangle6.addListener('bounds_changed', changeNewRec);
+
+      $infoWindow = new google.maps.InfoWindow();
+    }
+
+    function changeNewRec(event) {
+      var $ne = $rectangle6.getBounds().getNorthEast();
+      var $sw = $rectangle6.getBounds().getSouthWest();
+
+      var $contentString = &#39;&lt;b&gt;Rectangle move&lt;/b&gt;&lt;br&gt;&#39; + &#39;New North East corner: &#39; + $ne.lat() + &#39;,&#39; + $ne.lng() + &#39;&lt;br&gt;&#39; +
+      &#39;New South West corner: &#39; + $sw.lat() + &#39;,&#39; + $sw.lng();
+
+      $infoWindow.setContent($contentString);
+      $infoWindow.setPosition($ne);
+      $infoWindow.open($map6);
+    }
+    </code></pre>
+      <div class="map" id="map6"></div>
     </div>
 
     <script>
+      var $map2;
+      var $poly2;
+
+      var $map6;
+      var $rectangle6;
+      var $infoWindow6;
+
       function initMap() {
         var $position = {
           lat: 25.0336962,
@@ -115,6 +307,163 @@
             strokeColor: '#008800'
           });
         });
+
+        //繪製折線圖 ====================================================
+        $map2 = new google.maps.Map( document.getElementById('map2'), {
+          zoom: 7,
+          center: {lat: 41.879, lng: -87.624},
+        });
+
+        $poly2 = new google.maps.Polyline({
+          strokeColor: '#000000',
+          strokeOpacity: 1.0,
+          strokeWeight: 3
+        });
+        $poly2.setMap($map2);
+        $map2.addListener('click', addLatlng );
+
+        //三角型 =======================================================
+        var $map3 = new google.maps.Map( document.getElementById('map3'), {
+          zoom: 5,
+          center: {lat: 24.886, lng: -70.268},
+          mapTypeId: 'terrain',
+        });
+        var $outerCoords = [
+          {lat: 25.774, lng: -80.190},
+          {lat: 18.466, lng: -66.118},
+          {lat: 32.321, lng: -64.757}
+        ];
+
+        var $innerCoords = [
+          {lat: 28.745, lng: -70.579},
+          {lat: 29.570, lng: -67.514},
+          {lat: 27.339, lng: -66.668}
+        ];
+
+
+        var $trianShape = new google.maps.Polygon({
+          paths: [$outerCoords, $innerCoords],
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35,
+          draggable: true, //可拖移
+          geodesic: true,
+        });
+
+        $trianShape.setMap($map3);
+
+        //長方形===============================================
+        var $map4 = new google.maps.Map(document.getElementById('map4'), {
+          zoom: 11,
+          center: {lat: 33.678, lng: -116.243},
+          mapTypeId: 'terrain'
+        });
+
+        var $rectangle = new google.maps.Rectangle({
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35,
+          map: $map4,
+          editable: true,
+          bounds: {
+            north: 33.685,
+            south: 33.671,
+            east: -116.234,
+            west: -116.251
+          }
+          //取得map邊界
+          // bounds : $map4.getBounds(),
+        });
+
+        //圓形 =====================================================
+        var $citymap = {
+          chicago: {
+            center: {lat: 41.878, lng: -87.629},
+            population: 2714856
+          },
+          newyork: {
+            center: {lat: 40.714, lng: -74.005},
+            population: 8405837
+          },
+          losangeles: {
+            center: {lat: 34.052, lng: -118.243},
+            population: 3857799
+          },
+          vancouver: {
+            center: {lat: 49.25, lng: -123.1},
+            population: 603502
+          }
+        };
+
+        var $map5 = new google.maps.Map( document.getElementById('map5'), {
+          zoom: 4,
+          center: {lat: 37.090, lng: -95.712},
+          mapTypeId: 'terrain',
+        });
+
+        for ( var $city in $citymap ) {
+          var $cityCircle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: $map5,
+            center: $citymap[$city].center,
+            radius: Math.sqrt($citymap[$city].population) * 100
+          });
+        }
+
+        //編輯跳出視窗
+        $map6 = new google.maps.Map( document.getElementById('map6'), {
+          zoom: 9,
+          center: {lat: 44.5452, lng: -78.5389},
+        })
+
+        var $bounds = {
+          north: 44.599,
+          south: 44.490,
+          east: -78.443,
+          west: -78.649
+        };
+
+        $rectangle6 = new google.maps.Rectangle({
+          bounds: $bounds,
+          editable: true,
+          draggable: true,
+        });
+
+        $rectangle6.setMap($map6);
+        $rectangle6.addListener('bounds_changed', changeNewRec);
+
+        $infoWindow = new google.maps.InfoWindow();
+      }
+
+      function addLatlng(event) {
+        var path = $poly2.getPath();
+        path.push(event.latLng);
+
+        var marker = new google.maps.Marker({
+          position: event.latLng,
+          title: '#' + path.getLength(),
+          map: $map2,
+        });
+      }
+
+      function changeNewRec(event) {
+        var $ne = $rectangle6.getBounds().getNorthEast();
+        var $sw = $rectangle6.getBounds().getSouthWest();
+
+        var $contentString = '<b>Rectangle move</b><br>' + 'New North East corner: ' + $ne.lat() + ',' + $ne.lng() + '<br>' +
+        'New South West corner: ' + $sw.lat() + ',' + $sw.lng();
+
+        $infoWindow.setContent($contentString);
+        $infoWindow.setPosition($ne);
+        $infoWindow.open($map6);
       }
     </script>
     <script async defer
