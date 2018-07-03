@@ -21,7 +21,7 @@ $(function() {
                 break;
             case "icon-chevron-thin-down":
                 index = ++index > $a.length - 1 ? 0 : index;
-                break;
+                break;[]
         }
         window.location.assign($a.eq(index).attr("href"));
 
