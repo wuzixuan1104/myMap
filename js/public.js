@@ -20,21 +20,25 @@ $(function() {
                 index = --index < 0 ? $a.length - 1 : index;
                 break;
             case "icon-chevron-thin-down":
-                index = ++index > $a.length - 1 ? 0 : index
+                index = ++index > $a.length - 1 ? 0 : index;
+                break;
         }
-        window.location.assign($a.eq(index).attr("href"))
+        window.location.assign($a.eq(index).attr("href"));
 
     }), $(document).keydown(function(e) {
         if (null === $a) return !1;
-        if (-1 === (index = $a.index($a.filter(".active")))) return !1;
+        if (-1 === (index = $a.index($a.filter(".active"))) ) return !1;
         switch (e.keyCode) {
             case 38:
                 index = --index < 0 ? $a.length - 1 : index;
                 break;
             case 40:
-                index = ++index > $a.length - 1 ? 0 : index
+                index = ++index > $a.length - 1 ? 0 : index;
+                break;
+            default:
+                return;
         }
-        window.location.assign($a.eq(index).attr("href"))
+        window.location.assign($a.eq(index).attr("href"));
     })
 });
 
