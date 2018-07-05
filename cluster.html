@@ -18,13 +18,14 @@
       <div class="folder">位置</div>
       <p>Step1. 寫入多筆地址（',' 分隔）</p>
       <p>Step2. 按下'重新設定資料'，設定資料叢集</p>
+      <p>叢集字典：<a class="show" href="https://googlemaps.github.io/js-marker-clusterer/docs/reference.html"></a></p>
       <!-- <pre class="prettyprint">
         <code class="language-js">
 
         </code>
       </pre> -->
       <div class="panel">
-        <textarea id="addresses">台北火車站,台北市中正區重慶南路ㄧ段122號,台北市信義區市府路1號,新北市板橋區中山路1段161號,桃園市縣府路一號,台中火車站,台中市西屯區臺灣大道三段99號,高雄火車站</textarea>
+        <textarea id="addresses">台北火車站,台北市信義區市府路1號,台中火車站,台中市西屯區臺灣大道三段99號,高雄火車站</textarea>
         <button onclick="setData();" id="resetData">重新設定資料</button>
       </div>
       <div class="map" id="map"></div>
@@ -55,24 +56,22 @@
     function setData() {
       cleanMarkers();
 
-      var addrs = $.trim( $('#addresses').val() ).split(',');
+      var addrs = $.trim( $('#addresses').val() ).replace(/,([^,]*)$/,'$1').split(',');
       if( addrs.length <= 0 || addrs == '' ) {
         alert('請填寫地址');
         return;
       }
-      // console.log(addrs);
+
       var i = addrs.length;
       addrs.forEach( function(value, key) {
         _geocoder.geocode( {'address': value}, function( results, status ) {
           if( status == 'OK' ) {
             var marker = new google.maps.Marker({
-              map: _map,
               position: results[0].geometry.location,
               title: value,
               label: (++key).toString(),
             });
             _markers.push(marker);
-
             google.maps.event.addListener(marker, 'click', function() {
                showInfo(this);
             });
@@ -85,21 +84,11 @@
     }
 
     function cleanMarkers() {
-      console.log('clear:', _markers);
-      var l;
-      if( (l = _markers.length) > 0 ) {
-        console.log('length > 0');
-        for (var i = 0; i < l; i++) {
-
-          console.log( i, _markers[i]);
-          // if( !_markers[i].setMap(null) )
-          //   console.log('delete fail');
-          // _markers[i].setMap(null);
-          // _markerCluster.remove(_markers[i]);
-        }
+      if( _markers.length > 0) {
+        _markerCluster.clearMarkers();
         _markers = [];
+        _markerCluster = null;
       }
-      // _markerCluster.setMap(null);
     }
 
     function showInfo(markerObj) {
