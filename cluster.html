@@ -56,12 +56,12 @@
     function setData() {
       cleanMarkers();
 
-      var addrs = $.trim( $('#addresses').val() ).replace(/,([^,]*)$/,'$1').split(',');
-      if( addrs.length <= 0 || addrs == '' ) {
-        alert('請填寫地址');
+      var addrs = $.trim( $('#addresses').val() ).replace(/,$/,'').split(',').filter(String);
+      if( addrs.length <= 0 || addrs.length > 10 || addrs == '' ) {
+        alert('請填寫最多10個地址');
         return;
       }
-
+      
       var i = addrs.length;
       addrs.forEach( function(value, key) {
         _geocoder.geocode( {'address': value}, function( results, status ) {

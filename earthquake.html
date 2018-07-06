@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tw">
+   <head>
+      <meta http-equiv="Content-Language" content="zh-tw">
+      <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+      <title>🌰 Google Map Application</title>
+      <link href="css/public.css" rel="stylesheet" type="text/css">
+      <link href="css/icon.css" rel="stylesheet" type="text/css">
+      <script src="js/jquery_v1.10.2/jquery-1.10.2.min.js" language="javascript" type="text/javascript"></script><script src="js/public.js" language="javascript" type="text/javascript"></script>
+   </head>
+   <body lang="zh-tw">
+      <div id="logo">by Chestnut Wu</div>
+      <div id="sidemenu"></div>
+      <div class="container">
+        <div class="subject">地震分佈圖</div>
+        <div class="folder">延伸應用</div>
+        <p>參考資料：<a class="show" href="https://developers.google.com/maps/documentation/javascript/earthquakes?hl=zh-tw"></a></p>
+        <h3>基本標註</h3>
+        <div class="map" id="map1"></div>
+        <h3>圓形分佈圖</h3>
+        <div class="map" id="map2"></div>
+        <h3>熱度圖分佈</h3>
+        <div class="map" id="map3"></div>
+      </div>
+      <script>
+        var map1, map2, map3;
+        function initMap() {
+          map1 = new google.maps.Map( document.getElementById('map1'), {
+            zoom: 2,
+            center: new google.maps.LatLng(2.8,-187.3),
+            mapTypeId: 'terrain'
+          });
+          var script = document.createElement('script');
+          script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
+          document.getElementsByTagName('head')[0].appendChild(script);
+
+          //圓形 =============================================================
+          map2 = new google.maps.Map( document.getElementById('map2'), {
+            zoom: 2,
+            center: {lat: -33.865427, lng: 151.196123},
+            mapTypeId: 'terrain'
+          });
+
+          map2.data.setStyle(function(feature) {
+            var magnitude = feature.getProperty('mag');
+            return {
+              icon: getCircle(magnitude)
+            };
+          });
+
+          //heat
+          map3 = new google.maps.Map(document.getElementById('map3'), {
+            zoom: 2,
+            center: {lat: -33.865427, lng: 151.196123},
+            mapTypeId: 'terrain'
+          });
+
+
+        }
+        //基本輸入
+        // window.eqfeed_callback = function(results) {
+        //   for (var i = 0; i < results.features.length; i++) {
+        //     var coords = results.features[i].geometry.coordinates;
+        //     var latLng = new google.maps.LatLng(coords[1],coords[0]);
+        //     var marker = new google.maps.Marker({
+        //       position: latLng,
+        //       map: map1
+        //     });
+        //   }
+        // }
+
+        function getCircle(magnitude) {
+          return {
+            path: google.maps.SymbolPath.CIRCLE,
+            fillColor: 'red',
+            fillOpacity: .2,
+            scale: Math.pow(2, magnitude) / 2,
+            strokeColor: 'white',
+            strokeWeight: .5
+          };
+        }
+
+        //circle
+        // function eqfeed_callback(results) {
+        //   map2.data.addGeoJson(results);
+        // }
+
+        //heat => load: libraries=visualization
+        function eqfeed_callback(results) {
+          var heatmapData = [];
+          for (var i = 0; i < results.features.length; i++) {
+            var coords = results.features[i].geometry.coordinates;
+            var latLng = new google.maps.LatLng(coords[1], coords[0]);
+            heatmapData.push(latLng);
+          }
+          var heatmap = new google.maps.visualization.HeatmapLayer({
+            data: heatmapData,
+            dissipating: false,
+            map: map3
+          });
+        }
+      </script>
+      <script async defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeXLUmJBsHsbllQA-APXny49W_HJC41gY&libraries=visualization&callback=initMap"></script>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
+   </body>
+</html>
